@@ -1,0 +1,74 @@
+QUESTÃO 1 - TEORIA (2.0 pontos)
+================================
+
+a) O que é uma classe abstrata?
+Uma classe abstrata é uma classe que não pode ser instanciada diretamente
+(não se pode usar "new" para criar um objeto dela). Ela serve como um
+"modelo" para outras classes: pode conter métodos abstratos (sem
+implementação, que as subclasses são obrigadas a sobrescrever) e também
+métodos concretos, com implementação, que são herdados normalmente pelas
+subclasses.
+
+b) Diferença entre static e final
+- static: o atributo pertence à CLASSE, e não à instância. Existe apenas
+  uma única cópia na memória, compartilhada por todos os objetos daquela
+  classe, e o valor PODE ser alterado ao longo da execução.
+- final: o atributo (de instância ou de classe) tem seu valor definido
+  uma única vez e NÃO PODE ser alterado depois de inicializado
+  (é imutável).
+Resumo: static define "quem possui" o valor (classe x instância),
+enquanto final define "se o valor pode ser alterado" (mutabilidade).
+São conceitos independentes (um atributo pode ser static e final ao
+mesmo tempo, como uma constante de classe).
+
+c) Por que usar getters e setters em vez de acesso direto aos atributos?
+Porque isso preserva o encapsulamento:
+- Permite validar valores antes de atribuí-los (ex: impedir uma idade
+  negativa ou um preço inválido).
+- Protege a integridade interna dos dados do objeto.
+- Permite alterar a implementação interna da classe no futuro sem
+  quebrar o código externo que já a utiliza.
+
+d) Modificadores de acesso
+- public: o membro pode ser acessado de qualquer lugar (mesma classe,
+  mesmo pacote, subclasses e outros pacotes).
+- private: o membro só pode ser acessado dentro da própria classe onde
+  foi declarado.
+- protected: o membro pode ser acessado na própria classe, no mesmo
+  pacote, e também por subclasses, mesmo que estejam em pacotes
+  diferentes.
+
+
+QUESTÃO 5 - DESAFIO do-while (1.0 ponto)
+==========================================
+
+Código:
+int x = 3, y = 5, z = 7;
+do {
+    ++x; y--; --z;
+    if (x % 2 == 0) continue;
+    print(x, y, z);
+    if (y < 2) break;
+} while (z > 0);
+
+Rastreamento (o "continue" pula o print e o break, mas ainda avalia o
+"while"; o "break" encerra o laço imediatamente, sem checar o "while"):
+
+Iteração 1: x=4, y=4, z=6 -> x par -> continue (while: z=6>0, continua)
+Iteração 2: x=5, y=3, z=5 -> x ímpar -> imprime "x=5, y=3, z=5"
+            y<2? não (3<2 falso) -> while: z=5>0, continua
+Iteração 3: x=6, y=2, z=4 -> x par -> continue (while: z=4>0, continua)
+Iteração 4: x=7, y=1, z=3 -> x ímpar -> imprime "x=7, y=1, z=3"
+            y<2? sim (1<2 verdadeiro) -> break (sai do laço)
+
+Respostas:
+a) Valor final de x = 7
+b) Valor final de y = 1
+c) Valor final de z = 3
+
+Justificativa: o laço executa 4 iterações. Nas iterações em que x se
+torna par, o "continue" pula o restante do corpo (não imprime e não
+avalia o break), mas a condição do "while" ainda é checada. Na 4ª
+iteração, x fica ímpar, o valor é impresso, e como y (1) é menor que 2,
+o "break" interrompe definitivamente o laço, fixando os valores finais
+em x=7, y=1, z=3.
